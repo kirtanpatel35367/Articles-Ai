@@ -7,4 +7,4 @@ openai
 feedparser
 jinja2
 sqlalchemy
-smtplib
+psycopg2-binary
