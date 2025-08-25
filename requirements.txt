@@ -6,3 +6,5 @@ apscheduler
 openai
 feedparser
 jinja2
+sqlalchemy
+smtplib
