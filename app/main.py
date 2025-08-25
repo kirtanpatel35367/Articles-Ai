@@ -24,7 +24,9 @@ def fetch_news():
     save_article_to_db(articles)
 
 def run_daily_digest():
-    logging.info("Running daily digest pipeline... (to be implemented)")
+    logging.info("Running daily digest pipeline...")
+    articles = fetch_ai_news()
+    save_article_to_db(articles)
 
 def send_mail():
     return send_email("kp534422@gmail.com", "Welcome", "Abhi.. !")
@@ -32,7 +34,7 @@ def send_mail():
 # send_mail()
 fetch_news()
 scheduler = BackgroundScheduler()
-scheduler.add_job(run_daily_digest,"cron",hour=9 , minute=0)
+scheduler.add_job(run_daily_digest, "cron", hour=3, minute=30)
 scheduler.start()
 
 @app.on_event("shutdown")
