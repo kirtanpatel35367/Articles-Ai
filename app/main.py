@@ -35,7 +35,7 @@ def send_mail():
 # send_mail()
 fetch_news()
 scheduler = BackgroundScheduler(timezone=ZoneInfo("Asia/Kolkata"))  # Set scheduler tz to IST
-scheduler.add_job(run_daily_digest, "cron", hour=23, minute=50)      # 11:00 PM IST
+scheduler.add_job(run_daily_digest, "cron", hour=23, minute=55)      # 11:00 PM IST
 scheduler.start()
 
 @app.on_event("shutdown")
