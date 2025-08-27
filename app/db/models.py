@@ -8,8 +8,8 @@ class News(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
-    source = Column(Text,nullable=True)
-    url = Column(String, nullable=False)
+    source = Column(Text, nullable=True)
+    url = Column(String, nullable=False, unique=True, index=True)  # <-- add unique + index
     points = Column(Integer)
-    published_at = Column(DateTime)
-    author =  Column(String)
+    published_at = Column(DateTime, default=datetime.utcnow)
+    author = Column(String)
