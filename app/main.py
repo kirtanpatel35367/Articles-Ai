@@ -7,6 +7,7 @@ from app.news_ingestion.fetch_news_api import fetch_ai_news
 from app.delivery.email_sender import send_email
 from app.db.database import Base,engine
 from app.news_ingestion.article_save import save_article_to_db
+from zoneinfo import ZoneInfo
 from app.db.models import News
 
 Base.metadata.create_all(bind=engine)
@@ -33,8 +34,8 @@ def send_mail():
 
 # send_mail()
 fetch_news()
-scheduler = BackgroundScheduler()
-scheduler.add_job(run_daily_digest, "cron", hour=3, minute=30)
+scheduler = BackgroundScheduler(timezone=ZoneInfo("Asia/Kolkata"))  # Set scheduler tz to IST
+scheduler.add_job(run_daily_digest, "cron", hour=23, minute=0)      # 11:00 PM IST
 scheduler.start()
 
 @app.on_event("shutdown")
