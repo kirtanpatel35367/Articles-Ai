@@ -10,10 +10,12 @@ import os
 load_dotenv()
 import asyncio
 
+
 def save_article_to_db(articles):
     db: Session = SessionLocal()
     new_articles = []  # collect inserted ones
     recipients = os.getenv("MAIL_RECIPIENTS").split(",")
+    admin_mail = os.getenv("ADMIN_MAIL")
 
     try:
         for article in articles:
@@ -50,14 +52,27 @@ def save_article_to_db(articles):
             subject = f"{len(new_articles)} New AI Articles"
         else:
             # fallback body & subject if no new articles
-            body = "No new AI articles were found today, but here are the latest ones:\n\n"
+            body = "New AI articles were found today:\n\n"
             body += "\n\n".join(
                 [f"{a.get('title')} - {a.get('url')}" for a in articles[:5]]
             )
             subject = "Daily AI Digest (No New Articles)"
 
-        send_email(",".join(recipients), subject, body)
-        print("✅ Email sent")
+        try:
+            send_email(",".join(recipients), subject, body)
+            print("✅ Email sent")
+        except Exception as e:
+            # 🔴 Failed to send main email → notify admin
+            error_subject = "❌ Email Delivery Failed"
+            error_body = f"Failed to send daily digest email.\n\nError: {str(e)}"
+            if admin_mail:
+                try:
+                    send_email(admin_mail, error_subject, error_body)
+                    print("⚠️ Error email sent to admin")
+                except Exception as inner_e:
+                    print("❌ Failed to send error email to admin:", inner_e)
+            else:
+                print("⚠️ ADMIN_MAIL not set in environment")
 
     except Exception as e:
         db.rollback()
