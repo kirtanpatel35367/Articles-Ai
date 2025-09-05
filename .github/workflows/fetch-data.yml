@@ -2,7 +2,7 @@ name: Run API Fetch Script
 
 on:
   schedule:
-   - cron: "30 16 * * *"   # Every day 4:40 PM IST (11:10 AM UTC)
+   - cron: "30 16 * * *"   # 10:00 PM IST
   workflow_dispatch:        # allow manual trigger
 
 jobs:
