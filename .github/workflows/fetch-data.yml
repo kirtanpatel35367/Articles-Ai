@@ -23,5 +23,5 @@ jobs:
 
       - name: Run script
         env:
-          DATABASE_URL: ${{ secrets.DB_URL }}
+          DB_URL: ${{ secrets.DB_URL }}
         run: python -m app.main
