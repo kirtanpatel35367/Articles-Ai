@@ -2,7 +2,7 @@ name: Run API Fetch Script
 
 on:
   schedule:
-    - cron: "30 15 * * *"   # Every day 9:00 PM IST (15:30 UTC)
+    - cron: "10 11 * * *"   # Every day 4:40 PM IST (11:10 AM UTC)
   workflow_dispatch:        # allow manual trigger
 
 jobs:
@@ -24,4 +24,4 @@ jobs:
       - name: Run script
         env:
           DATABASE_URL: ${{ secrets.DB_URL }}
-        run: python app/main.py
+        run: python -m app.main
