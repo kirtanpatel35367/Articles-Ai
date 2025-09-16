@@ -20,14 +20,14 @@ def fetch_ai_news():
 
     articles = [
         {
-            "title": hit.get("title"),
-            "url": hit.get("url") or f"https://news.ycombinator.com/item?id={hit.get('objectID')}",
-            "description": hit.get("title"),
-            "source": "HackerNews",
-            "publishedAt": hit.get("created_at"),
-            "points": hit.get("points"),
-            "author": hit.get("author")
-        }
+        "title": hit.get("story_title"),  # Use story_title
+        "url": hit.get("story_url") or f"https://news.ycombinator.com/item?id={hit.get('objectID')}",
+        "description": hit.get("comment_text"),  # Use comment_text as description
+        "source": "HackerNews",
+        "publishedAt": hit.get("created_at"),
+        "points": hit.get("points", None),  # Safe fallback in case points doesn't exist
+        "author": hit.get("author")
+    }
         for hit in data.get("hits", [])
     ]
 
