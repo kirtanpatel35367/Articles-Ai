@@ -21,7 +21,7 @@ def fetch_ai_news():
     articles = [
         {
         "title": hit.get("story_title"),  # Use story_title
-        "url": hit.get("story_url") or f"https://news.ycombinator.com/item?id={hit.get('objectID')}",
+        "url": hit.get("story_url"),
         "description": hit.get("comment_text"),  # Use comment_text as description
         "source": "HackerNews",
         "publishedAt": hit.get("created_at"),
